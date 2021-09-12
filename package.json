@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-ios-catalyst",
+  "version": "0.0.1",
+  "description": "cordova-plugin-ios-catalyst dev",
+  "repository": "github:/pulpgrinder/cordova-ios-catalyst",
+  "bugs": "https://github.com//pulpgrinder/cordova-ios-catalyst/issues",
+  "keywords": [
+    "ios",
+    "cordova",
+    "apache",
+    "catalyst",
+    "macos",
+    "ecosystem:cordova",
+    "cordova:platform"
+  ],
+  "author": "Anthony W. Hursh",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=10"
+  }
+
+}
