@@ -2,8 +2,8 @@
 
 #import <Cordova/CDVPlugin.h>
 
-@interface CDVCatalyst : CDVPlugin
+@interface CDVMacCatalyst : CDVPlugin
 
-- (void)isCatalyst:(CDVInvokedUrlCommand*)command;
+- (void)isMacCatalyst:(CDVInvokedUrlCommand*)command;
 
 @end

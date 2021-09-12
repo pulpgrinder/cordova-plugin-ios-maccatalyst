@@ -8,7 +8,7 @@
     "ios",
     "cordova",
     "apache",
-    "catalyst",
+    "maccatalyst",
     "macos",
     "ecosystem:cordova",
     "cordova:platform"

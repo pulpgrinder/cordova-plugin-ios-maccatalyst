@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="cordova-plugin-ios-catalyst" version="0.0.1">
-    <name>Catalyst</name>
+    <name>Mac Catalyst</name>
     <description>Provide functions for iOS running under macOS Catalyst</description>
     <license>Apache 2.0</license>
     <keywords>cordova,device</keywords>
-    <js-module src="www/catalyst.js" name="catalyst">
-        <clobbers target="catalyst" />
+    <js-module src="www/maccatalyst.js" name="maccatalyst">
+        <clobbers target="maccatalyst" />
     </js-module>
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="Catalyst">
-                <param name="ios-package" value="CDVCatalyst"/>
+            <feature name="MacCatalyst">
+                <param name="ios-package" value="CDVMacCatalyst"/>
             </feature>
         </config-file>
-        <header-file src="src/ios/CDVCatalyst.h" />
-        <source-file src="src/ios/CDVCatalyst.m" />
+        <header-file src="src/ios/CDVMacCatalyst.h" />
+        <source-file src="src/ios/CDVMacCatalyst.m" />
     </platform>
 </plugin>
