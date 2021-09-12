@@ -8,6 +8,7 @@
 {
     CDVPluginResult* pluginResult = nil;
     BOOL isMacCatalystValue;
+    // See https://developer.apple.com/forums/thread/657228
     #if TARGET_OS_MACCATALYST
       isMacCatalystValue = TRUE; 
     #else
