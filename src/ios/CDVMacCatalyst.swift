@@ -8,8 +8,8 @@ import UniformTypeIdentifiers
     pluginCommand = "";
     super.init();
   }
-  @objc(isMacCatalyst:)
-  func isMacCatalyst(command: CDVInvokedUrlCommand) {
+  @objc(checkMacCatalyst:)
+  func checkMacCatalyst(command: CDVInvokedUrlCommand) {
     var pluginResult = CDVPluginResult(
       status: CDVCommandStatus_ERROR
     )
