@@ -2,17 +2,7 @@
 
 Provides methods related to running iPad apps under macOS.
 
-#Installation
-
-As this plugin is written in Swift, you must first install the Swift bridging header plugin:
-
-`cordova plugin add cordova-plugin-add-swift-support --save`
-
-Then install this plugin with:
-
-`cordova plugin add ../gits/cordova-plugin-ios-maccatalyst/ --save`
-
-(for production: cordova plugin add https://github.com/pulpgrinder/cordova-plugin-ios-maccatalyst.git)
+Note that in order to make your app compile and run under Mac Catalyst, you will need to alter the copy-www-build-step.sh file as detailed in https://github.com/apache/cordova-ios/issues/699
 
 # Installation
 
@@ -39,30 +29,36 @@ This takes care of any initialization. You should call this once after everythin
   maccatalyst.intializeMacCatalystPlugin();
 ```
 
-Right now, this method:
+After calling this, the `maccatalyst` object will have a couple of additional keys:
 
-1. calls `maccatalyst.getMacCatalystContainerDocumentsFolder(callback)` and sets maccatalyst.containerDocumentsFolder to the result.
-1. calls maccatalyst.isMacCatalyst and sets maccatalyst.hasMacCatalyst to the result.
+`maccatalyst.isMacCatalyst`
 
-## `maccatalyst.isMacCatalyst(callback)`
+This will be set to `true` if the app is running on a desktop Mac under Mac Catalyst, `false` if it is running on a physical iOS device.
 
-Calls the provided callback with a value of true if the app is running on a Mac under Catalyst, false if running on an iOS device. If you've called `maccatalyst.intializeMacCatalystPlugin()`, you can just look at the value of `maccatalyst.hasMacCatalyst` without calling this method.
+`maccatalyst.containerDocumentsDirectory`
 
-##Examples:
+This is the file URL for the app's Documents directory in the sandboxed container folder. On a physical iOS device, this is identical to `cordova.file.documentsDirectory`. On a desktop macOS device, this will be set to `/Library/Containers/{app name}/Data/Documents`, regardless of the app's sandbox status. On an unsandboxed macOS app, cordova.file.documentsDirectory is set to `~/Documents`. You may need to use the container folder if you're using iCloud to sync files between desktop and mobile. 
+
+## `maccatalyst.checkMacCatalyst(callback)`
+
+Used by `maccatalyst.intializeMacCatalystPlugin` to determine whether the app is running on desktop or mobile. It is not necessary to call this yourself. Just look at the value of `maccatalyst.isMacCatalyst' after initializing the plugin.
+
+## Example:
 ```javascript
 if(maccatalyst !== undefined){ 
-  maccatalyst.isMacCatalyst(
-    function (iscatalyst){
-      alert("Are we running under Mac Catalyst? " + iscatalyst)
-  });
+      alert("Are we running under Mac Catalyst? " + maccatalyst.isMacCatalyst)
+  };
 }
 ```
-Or, if you've called `maccatalyst.intializeMacCatalystPlugin()`, you can just do:
 
+## `maccatalyst.getMacCatalystContainerDocumentsFolder(callback)`
+
+Used by `maccatalyst.intializeMacCatalystPlugin` to determine the documents folder inside the app's container. It is not necessary to call this yourself. Just look at the value of `maccatalyst.containerDocumentsFolder` after initializing the plugin.
+
+##Example
 ```javascript
 if(maccatalyst !== undefined){ 
-      alert("Are we running under Mac Catalyst? " + maccatalyst.macCatalystEnvironment)
-  };
+  console.log("Container documents folder is " + maccatalyst.containerDocumentsFolder);
 }
 ```
 
@@ -83,30 +79,3 @@ if(maccatalyst !== undefined){
   })
 }
 ```
-
-## `maccatalyst.getMacCatalystContainerDocumentsFolder(callback)`
-
-Returns the file:// URL for the app's sandboxed container. On an iOS device, this is the same as `cordova.file.documentsDirectory`, but in an iPad app running on macOS under Mac Catalyst, it is  an app's sandboxed Documents folder is found at `/Library/Containers/{appname}/Data/Documents/`, rather than the standard `~/Documents/`. This is important if you are (e.g.) using iCloud to sync your documents between desktop and mobile. For that to work properly, the desktop files need to be stored in the container's Documents folder, not the top-level `~/Documents/` folder.
-
-As a convenience, `maccatalyst.intializeMacCatalystPlugin()` calls this code and sets maccatalyst.containerDocumentsFolder to this value, so you don't need to be calling it each time.
-
-##Examples:
-```javascript
-if(maccatalyst !== undefined){ 
-    maccatalyst.getMacCatalystContainerDocumentsFolder(function(folderURL){
-      console.log("Container documents folder is " + folderURL);
-    })
-}
-```
-
-Or, if you've called `maccatalyst.intializeMacCatalystPlugin()`, you can just do:
-
-```javascript
-if(maccatalyst !== undefined){ 
-  console.log("Container documents folder is " + maccatalyst.containerDocumentsFolder);
-}
-```
-
-
-
-
