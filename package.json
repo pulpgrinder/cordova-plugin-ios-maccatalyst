@@ -9,7 +9,6 @@
     "cordova",
     "apache",
     "maccatalyst",
-    "macos",
     "ecosystem:cordova",
     "cordova:platform"
   ],
